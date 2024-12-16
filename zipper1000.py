@@ -6,7 +6,7 @@ import math
 
 def batch_zip_files(source_dir, output_dir, batch_size=1000):
     """
-    Zips files from source_dir into batches of specified size.
+    Zips files from source_dir into batches of specified size and removes original files.
     
     Args:
         source_dir (str): Directory containing the text files
@@ -36,16 +36,18 @@ def batch_zip_files(source_dir, output_dir, batch_size=1000):
         zip_path = Path(output_dir) / zip_filename
         
         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-            
             # Add files to zip
             for file_path in batch_files:
-                
                 # Use relative path within zip file
                 arcname = file_path.name
                 zipf.write(file_path, arcname)
+    
+    # After all files have been zipped, remove the original text files
+    print("Removing original text files...")
+    for file_path in tqdm(files, desc="Removing files"):
+        file_path.unlink()
 
 if __name__ == "__main__":
-    
     # Example usage
     source_directory = "input"
     output_directory = "output"
