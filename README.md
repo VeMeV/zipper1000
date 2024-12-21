@@ -3,9 +3,4 @@ A simple Python script that organizes and ZIPs the text (.txt) files in batches 
 
 
 ## Usage
-```
-- Put all the files in 'input' folder
-- Run the script
-- It will shows progress bar
-- The result would be in output folder
-```
+`zipper1000.py <source_dir> <output_dir> <zip_prefix>`
