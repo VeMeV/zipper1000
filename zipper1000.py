@@ -40,9 +40,10 @@ def batch_zip_files(source_dir, output_dir, prefix="batch", batch_size=1000):
         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
             # Add files to zip
             for file_path in batch_files:
-                # Use relative path within zip file
+                # Convert Path object to string and ensure proper path handling
+                file_path_str = str(file_path)
                 arcname = file_path.name
-                zipf.write(file_path, arcname)
+                zipf.write(file_path_str, arcname)
     
     # After all files have been zipped, remove the original text files
     print("Removing original text files...")
